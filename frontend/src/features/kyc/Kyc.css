@@ -1,0 +1,152 @@
+/* ═══ KYC Page ═══ */
+.kyc-page {
+    animation: fadeInUp 0.4s ease;
+}
+
+.kyc-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+}
+
+.kyc-page__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.kyc-page__subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.kyc-page__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.kyc-page__refresh {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.kyc-page__refresh:hover {
+    color: var(--color-accent);
+    background: var(--color-surface);
+}
+
+/* Form Layout */
+.kyc-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.kyc-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+@media (max-width: 640px) {
+    .kyc-form__row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.kyc-form__actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: flex-end;
+    margin-top: var(--space-2);
+}
+
+.kyc-form__select {
+    width: 100%;
+    height: 40px;
+    padding: 0 var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    outline: none;
+    transition: border-color var(--transition-fast);
+    cursor: pointer;
+}
+
+.kyc-form__select:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-muted);
+}
+
+/* Verification States */
+.kyc-verification {
+    text-align: center;
+    padding: var(--space-8) 0;
+}
+
+.kyc-verification__success,
+.kyc-verification__review,
+.kyc-verification__rejected,
+.kyc-verification__submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.kyc-verification__success {
+    color: var(--color-success);
+}
+
+.kyc-verification__success h3 {
+    color: var(--color-success);
+    font-size: var(--text-xl);
+}
+
+.kyc-verification__success p {
+    color: var(--color-text-secondary);
+    max-width: 400px;
+}
+
+.kyc-verification__review {
+    color: var(--color-info);
+}
+
+.kyc-verification__review h3 {
+    color: var(--color-text-primary);
+    font-size: var(--text-xl);
+}
+
+.kyc-verification__review p {
+    color: var(--color-text-secondary);
+    max-width: 400px;
+}
+
+.kyc-verification__rejected h3 {
+    color: var(--color-error);
+    font-size: var(--text-xl);
+}
+
+.kyc-verification__rejected p {
+    color: var(--color-text-secondary);
+}
+
+.kyc-verification__submit h3 {
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+}
+
+.kyc-verification__submit p {
+    color: var(--color-text-secondary);
+    max-width: 400px;
+}

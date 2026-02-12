@@ -1,0 +1,22 @@
+/* ═══ Dashboard Layout ═══ */
+.layout {
+    min-height: 100vh;
+}
+
+.layout__main {
+    margin-left: var(--sidebar-width);
+    padding: var(--space-8);
+    min-height: 100vh;
+    transition: margin-left var(--transition-slow);
+}
+
+.layout--collapsed .layout__main {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+@media (max-width: 768px) {
+    .layout__main {
+        margin-left: 0;
+        padding: var(--space-4);
+    }
+}

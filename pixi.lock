@@ -1,0 +1,18 @@
+version: 6
+environments:
+  default:
+    channels:
+    - url: https://conda.anaconda.org/conda-forge/
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
+    packages:
+      win-64:
+      - conda: https://conda.anaconda.org/conda-forge/win-64/nodejs-24.13.0-he453025_0.conda
+packages:
+- conda: https://conda.anaconda.org/conda-forge/win-64/nodejs-24.13.0-he453025_0.conda
+  sha256: b59d312346aa25c1a113bfdc4d93d9af58c7f6d80c05a796e0364c3546f38acb
+  md5: 0d0bea13d62ede8a10c8dd8cf094526c
+  license: MIT
+  license_family: MIT
+  size: 30225533
+  timestamp: 1770653855957

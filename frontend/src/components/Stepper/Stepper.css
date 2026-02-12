@@ -1,0 +1,85 @@
+/* ═══ Stepper Component ═══ */
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+    position: relative;
+}
+
+.stepper__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+
+.stepper__indicator {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    border: 2px solid var(--color-border);
+    transition: all var(--transition-normal);
+    z-index: 1;
+}
+
+.stepper__step--active .stepper__indicator {
+    background: var(--color-accent-muted);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 12px var(--color-accent-glow);
+}
+
+.stepper__step--completed .stepper__indicator {
+    background: var(--color-success);
+    color: #fff;
+    border-color: var(--color-success);
+}
+
+.stepper__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: var(--space-2);
+    text-align: center;
+}
+
+.stepper__label {
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+}
+
+.stepper__step--active .stepper__label {
+    color: var(--color-accent);
+}
+
+.stepper__step--completed .stepper__label {
+    color: var(--color-success);
+}
+
+.stepper__description {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+.stepper__connector {
+    position: absolute;
+    top: 18px;
+    left: calc(50% + 22px);
+    width: calc(100% - 44px);
+    height: 2px;
+    background: var(--color-border);
+}
+
+.stepper__step--completed .stepper__connector {
+    background: var(--color-success);
+}

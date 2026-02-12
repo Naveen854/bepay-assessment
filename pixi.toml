@@ -1,0 +1,11 @@
+[workspace]
+authors = ["Naveen854 <pathranaveen854@gmail.com>"]
+channels = ["conda-forge"]
+name = "bepay-assessment"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+nodejs = "24.*"

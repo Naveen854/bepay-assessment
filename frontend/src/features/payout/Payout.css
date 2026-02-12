@@ -1,0 +1,73 @@
+/* ═══ Payout Page ═══ */
+.payout-page {
+    animation: fadeInUp 0.4s ease;
+}
+
+.payout-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+}
+
+.payout-page__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.payout-page__subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Quote Summary */
+.payout-quote {
+    padding: var(--space-4) 0;
+}
+
+.payout-quote__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-primary);
+}
+
+.payout-quote__details {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+}
+
+.payout-quote__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+}
+
+.payout-quote__row:last-child {
+    border-bottom: none;
+}
+
+.payout-quote__row span {
+    color: var(--color-text-secondary);
+}
+
+.payout-quote__row strong {
+    color: var(--color-text-primary);
+}
+
+.payout-quote__row--total {
+    background: var(--color-accent-muted);
+}
+
+.payout-quote__row--total strong {
+    color: var(--color-accent);
+    font-size: var(--text-base);
+}
