@@ -1,0 +1,10 @@
+.table-empty-state__message {
+    margin: 0;
+    font-weight: 500;
+}
+
+.table-empty-state__description {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}

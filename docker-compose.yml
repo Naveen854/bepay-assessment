@@ -1,9 +1,9 @@
 services:
-  db:
+  postgressdb:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: bepay
-      POSTGRES_PASSWORD: bepay_dev_pass
+      POSTGRES_PASSWORD: bepay_secret
       POSTGRES_DB: bepay
     ports:
       - "5432:5432"
@@ -24,10 +24,11 @@ services:
     env_file:
       - ../.env
     depends_on:
-      db:
+      postgressdb:
         condition: service_healthy
     volumes:
       - ./backend/src:/app/src
+      - /app/node_modules
 
   frontend:
     build:
@@ -40,7 +41,8 @@ services:
     depends_on:
       - backend
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   pgdata:

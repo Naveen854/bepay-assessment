@@ -47,4 +47,6 @@
 
 .card__body {
     color: var(--color-text-secondary);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }

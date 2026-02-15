@@ -132,3 +132,21 @@
     display: flex;
     justify-content: flex-end;
 }
+
+/* ─── Additional Responsive ─────────────────────── */
+@media (max-width: 768px) {
+    .reconciliation-page__header {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .reconciliation-page__title {
+        font-size: var(--text-2xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .reconciliation-report__summary {
+        grid-template-columns: 1fr;
+    }
+}

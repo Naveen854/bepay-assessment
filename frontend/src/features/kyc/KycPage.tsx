@@ -22,7 +22,10 @@ const steps = [
 ];
 
 const senderSchema = z.object({
-    companyName: z.string().min(2, 'Company name is required'),
+    fullName: z.string().min(2, 'Legal Business Name is required'),
+    identificationNumber: z.string().min(1, 'Tax ID / Registration Number is required'),
+    registrationDate: z.string().min(1, 'Date of Incorporation is required'),
+    businessType: z.string().min(1, 'Business Type is required'),
     firstName: z.string().min(1, 'First name is required'),
     lastName: z.string().optional(),
     email: z.string().email('Valid email required'),
@@ -55,6 +58,7 @@ export const KycPage: React.FC = () => {
             email: user?.email || '',
             firstName: user?.name?.split(' ')[0] || '',
             lastName: user?.name?.split(' ').slice(1).join(' ') || '',
+            businessType: 'corporation',
         },
     });
 
@@ -89,7 +93,7 @@ export const KycPage: React.FC = () => {
             let currentOrgId = orgId;
             if (!currentOrgId) {
                 const { data: org } = await orgApi.create({
-                    name: formData.companyName,
+                    name: formData.fullName,
                     country: formData.country,
                     businessType: 'company',
                 });
@@ -99,7 +103,21 @@ export const KycPage: React.FC = () => {
 
             await kycApi.createSender(currentOrgId!, {
                 type: 'business',
-                ...formData,
+                fullName: formData.fullName,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                phoneNumber: formData.phoneNumber,
+                identificationNumber: formData.identificationNumber,
+                registrationDate: formData.registrationDate,
+                businessType: formData.businessType,
+                address: {
+                    street: formData.address,
+                    city: formData.city,
+                    state: formData.state,
+                    country: formData.country,
+                    postalCode: formData.zipCode,
+                },
             });
 
             setKycStatus('pending');
@@ -166,6 +184,7 @@ export const KycPage: React.FC = () => {
             under_review: 'info',
             verified: 'success',
             rejected: 'error',
+            failed: 'error',
         };
         return <Badge variant={map[kycStatus] || 'default'} dot>{kycStatus.replace(/_/g, ' ')}</Badge>;
     };
@@ -196,8 +215,21 @@ export const KycPage: React.FC = () => {
                     <CardBody>
                         <form className="kyc-form" onSubmit={handleSubmit(onSubmitSender)}>
                             <div className="kyc-form__row">
-                                <Input label="Company Name" error={errors.companyName?.message} {...register('companyName')} />
-                                <Input label="Country" placeholder="US" error={errors.country?.message} {...register('country')} />
+                                <Input label="Legal Business Name" error={errors.fullName?.message} {...register('fullName')} />
+                                <div className="input-group">
+                                    <label className="input-group__label">Business Type</label>
+                                    <select className="kyc-form__select" {...register('businessType')}>
+                                        <option value="corporation">Corporation</option>
+                                        <option value="llc">LLC</option>
+                                        <option value="sole_proprietorship">Sole Proprietorship</option>
+                                        <option value="partnership">Partnership</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="kyc-form__row">
+                                <Input label="Tax ID / Registration Number" error={errors.identificationNumber?.message} {...register('identificationNumber')} />
+                                <Input label="Date of Incorporation" type="date" error={errors.registrationDate?.message} {...register('registrationDate')} />
                             </div>
                             <div className="kyc-form__row">
                                 <Input label="First Name" error={errors.firstName?.message} {...register('firstName')} />
@@ -208,12 +240,13 @@ export const KycPage: React.FC = () => {
                                 <Input label="Phone Number" {...register('phoneNumber')} />
                             </div>
                             <div className="kyc-form__row">
-                                <Input label="State" error={errors.state?.message} {...register('state')} />
-                                <Input label="City" error={errors.city?.message} {...register('city')} />
+                                <Input label="Address" error={errors.address?.message} {...register('address')} />
                             </div>
                             <div className="kyc-form__row">
-                                <Input label="Address" error={errors.address?.message} {...register('address')} />
+                                <Input label="City" error={errors.city?.message} {...register('city')} />
+                                <Input label="State" error={errors.state?.message} {...register('state')} />
                                 <Input label="Zip Code" error={errors.zipCode?.message} {...register('zipCode')} />
+                                <Input label="Country" placeholder="US" error={errors.country?.message} {...register('country')} />
                             </div>
                             <Button type="submit" loading={loading} size="lg">
                                 Continue to Documents
@@ -231,8 +264,9 @@ export const KycPage: React.FC = () => {
                         <div className="kyc-form">
                             <div className="kyc-form__row">
                                 <div className="input-group">
-                                    <label className="input-group__label">Document Type</label>
+                                    <label className="input-group__label" htmlFor="doc-type-select">Document Type</label>
                                     <select
+                                        id="doc-type-select"
                                         className="kyc-form__select"
                                         value={docType}
                                         onChange={(e) => setDocType(e.target.value)}

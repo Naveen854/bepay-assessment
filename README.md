@@ -8,8 +8,9 @@ A full-stack B2B payouts management console built with **NestJS** (backend) and 
 - **KYC Onboarding** — 3-step wizard: business info → document upload → verification (syncs with Mesta Sender API)
 - **Beneficiary Management** — CRUD with Mesta sync, searchable table, verify status
 - **Payout Flow** — Quote → Order lifecycle via Mesta Quotes/Orders APIs, cancel support
-- **Transaction Ledger** — Paginated, filterable transaction list with Mesta sync
-- **Reconciliation** — Date-range reports with status/type breakdowns, CSV export
+- **Payout Flow** — Quote → Order lifecycle via Mesta Quotes/Orders APIs, cancel support
+- **Transaction Ledger** — Paginated, filterable transaction list with Mesta sync (Manual Refresh)
+- **Reconciliation** — CSV export of transactions from Dashboard
 
 ## Tech Stack
 

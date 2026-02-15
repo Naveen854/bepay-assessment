@@ -35,6 +35,10 @@ export const authApi = {
         api.get(`/auth/verify?token=${token}`),
     getProfile: () => api.get('/auth/me'),
     logout: () => api.post('/auth/logout'),
+    updateOnboarding: (status: string) => api.patch('/auth/onboarding', { status }),
+    invite: (data: { email: string; name: string }) => api.post('/auth/invite', data),
+    acceptInvite: (data: { token: string; password: string }) => api.post('/auth/invite/accept', data),
+    changePassword: (data: any) => api.post('/auth/change-password', data),
 };
 
 // ─── KYC API ─────────────────────────────────────
@@ -63,11 +67,12 @@ export const orgApi = {
 export const beneficiaryApi = {
     create: (data: Record<string, any>) =>
         api.post('/beneficiaries', data),
-    list: () => api.get('/beneficiaries'),
+    list: (params?: Record<string, any>) => api.get('/beneficiaries', { params }),
     get: (id: string) => api.get(`/beneficiaries/${id}`),
     update: (id: string, data: Record<string, any>) =>
         api.patch(`/beneficiaries/${id}`, data),
     delete: (id: string) => api.delete(`/beneficiaries/${id}`),
+    verify: (id: string) => api.post(`/beneficiaries/${id}/verify`),
 };
 
 // ─── Payout API ──────────────────────────────────
@@ -76,7 +81,7 @@ export const payoutApi = {
         api.post('/payouts/quote', data),
     createOrder: (data: Record<string, any>) =>
         api.post('/payouts/order', data),
-    list: () => api.get('/payouts'),
+    list: (params?: Record<string, any>) => api.get('/payouts', { params }),
     getOrder: (id: string) => api.get(`/payouts/${id}`),
     cancelOrder: (id: string) => api.post(`/payouts/${id}/cancel`),
 };
@@ -85,9 +90,22 @@ export const payoutApi = {
 export const transactionApi = {
     list: (params?: Record<string, any>) =>
         api.get('/transactions', { params }),
+    getSummary: () => api.get('/transactions/summary'),
     get: (id: string) => api.get(`/transactions/${id}`),
     exportCsv: (params?: Record<string, any>) =>
-        api.get('/reconciliation/export', { params, responseType: 'blob' }),
+        api.get('/transactions/export', { params, responseType: 'blob' }),
+    sync: (orgId: string) => api.post(`/transactions/sync?orgId=${orgId}`),
+};
+
+// ─── Common API ──────────────────────────────────
+export const commonApi = {
+    upload: (file: File) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        return api.post('/uploads', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+    },
 };
 
 export default api;

@@ -85,3 +85,33 @@
     font-size: var(--text-sm);
     color: var(--color-text-secondary);
 }
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 768px) {
+    .transaction-page__header {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .transaction-page__title {
+        font-size: var(--text-2xl);
+    }
+
+    .transaction-page__filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .transaction-page__filters>.input-group {
+        max-width: 100%;
+    }
+
+    .transaction-page__filter-group select {
+        width: 100%;
+    }
+
+    .transaction-page__pagination {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+}

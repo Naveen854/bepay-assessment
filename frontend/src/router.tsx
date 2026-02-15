@@ -16,19 +16,15 @@ import { PayoutPage } from './features/payout/PayoutPage';
 import { TransactionPage } from './features/transaction/TransactionPage';
 import { ReconciliationPage } from './features/reconciliation/ReconciliationPage';
 
+import './Router.css';
+
 // Protected route wrapper
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { isAuthenticated, isLoading } = useAuthStore();
 
     if (isLoading) {
         return (
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                color: 'var(--color-text-muted)',
-            }}>
+            <div className="loading-overlay">
                 Loading...
             </div>
         );
@@ -43,15 +39,11 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
 // Placeholder pages for later phases
 const PlaceholderPage: React.FC<{ title: string }> = ({ title }) => (
-    <div style={{ animation: 'fadeInUp 0.4s ease' }}>
-        <h1 style={{
-            fontSize: 'var(--text-3xl)',
-            fontWeight: 'var(--font-bold)',
-            marginBottom: 'var(--space-2)',
-        }}>
+    <div className="placeholder-page">
+        <h1 className="placeholder-title">
             {title}
         </h1>
-        <p style={{ color: 'var(--color-text-secondary)' }}>
+        <p className="placeholder-text">
             This section is coming soon.
         </p>
     </div>

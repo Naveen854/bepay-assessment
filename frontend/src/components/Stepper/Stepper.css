@@ -39,7 +39,7 @@
 
 .stepper__step--completed .stepper__indicator {
     background: var(--color-success);
-    color: #fff;
+    color: var(--color-text-on-accent);
     border-color: var(--color-success);
 }
 

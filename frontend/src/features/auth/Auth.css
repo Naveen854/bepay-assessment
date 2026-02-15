@@ -13,9 +13,9 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 20% 50%, rgba(108, 92, 231, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(162, 155, 254, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(0, 206, 201, 0.04) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 50%, var(--color-auth-gradient-1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, var(--color-auth-gradient-2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, var(--color-auth-gradient-3) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -42,8 +42,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-accent), #a29bfe);
-    color: #fff;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+    color: var(--color-text-on-accent);
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
     border-radius: var(--radius-lg);

@@ -33,8 +33,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-accent), #a29bfe);
-    color: #fff;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+    color: var(--color-text-on-accent);
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
     border-radius: var(--radius-md);

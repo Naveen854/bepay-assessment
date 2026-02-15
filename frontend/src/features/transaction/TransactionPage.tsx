@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
     ArrowRightLeft,
     Search,
@@ -7,73 +7,54 @@ import {
     ChevronLeft,
     ChevronRight,
 } from 'lucide-react';
-import { Button, Input, Card, Badge } from '../../components';
-import { transactionApi } from '../../services/api';
+import { Button, Input, Card, Badge, PageHeader, TableEmptyState } from '../../components';
 import './Transaction.css';
-
-interface TransactionItem {
-    id: string;
-    type: string;
-    amount: number;
-    currency: string;
-    status: string;
-    reference?: string;
-    mestaTransactionId?: string;
-    createdAt: string;
-}
+import { useTransactions, useExportTransactions } from '../../hooks/useTransactions';
+import { useOrgStore } from '../../store/orgStore';
 
 export const TransactionPage: React.FC = () => {
-    const [transactions, setTransactions] = useState<TransactionItem[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [search, setSearch] = useState('');
-    const [statusFilter, setStatusFilter] = useState('');
+    // UI State
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [total, setTotal] = useState(0);
+    const [statusFilter, setStatusFilter] = useState('');
+    const [search, setSearch] = useState('');
 
-    const loadTransactions = useCallback(async () => {
-        setLoading(true);
-        try {
-            const params: Record<string, any> = { page, limit: 15 };
-            if (statusFilter) params.status = statusFilter;
-            const { data } = await transactionApi.list(params);
-            setTransactions(data.items || []);
-            setTotalPages(data.totalPages || 1);
-            setTotal(data.total || 0);
-        } catch {
-            // empty
-        } finally {
-            setLoading(false);
-        }
-    }, [page, statusFilter]);
+    // Query
+    const { activeOrg } = useOrgStore();
+    const queryParams: Record<string, any> = { page, limit: 15 };
+    if (statusFilter) queryParams.status = statusFilter;
+    if (activeOrg?.id) queryParams.orgId = activeOrg.id;
 
-    useEffect(() => {
-        loadTransactions();
-    }, [loadTransactions]);
+    const { data: transactionData, isLoading: loading } = useTransactions(queryParams, { enabled: !!activeOrg?.id });
+    const exportMutation = useExportTransactions();
 
-    const filtered = transactions.filter((t) => {
+    // Derived State
+    const transactions = transactionData?.items || [];
+    const total = transactionData?.total || 0;
+    const totalPages = transactionData?.totalPages || 1;
+
+    // Filter Logic
+    const filtered = transactions.filter((t: any) => {
         if (!search) return true;
         const q = search.toLowerCase();
         return (
             t.id.toLowerCase().includes(q) ||
-            t.reference?.toLowerCase().includes(q) ||
-            t.mestaTransactionId?.toLowerCase().includes(q)
+            (t.reference && t.reference.toLowerCase().includes(q)) ||
+            (t.mestaTransactionId && t.mestaTransactionId.toLowerCase().includes(q))
         );
     });
 
-    const handleExport = async () => {
-        try {
-            const { data } = await transactionApi.exportCsv();
-            const url = window.URL.createObjectURL(new Blob([data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `transactions_${new Date().toISOString().slice(0, 10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        } catch {
-            // silent
-        }
+    const handleExport = () => {
+        exportMutation.mutate(undefined, {
+            onSuccess: (data) => {
+                const url = window.URL.createObjectURL(new Blob([data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `transactions_${new Date().toISOString().slice(0, 10)}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            },
+        });
     };
 
     const statusVariant = (status: string): 'success' | 'warning' | 'error' | 'default' => {
@@ -88,15 +69,15 @@ export const TransactionPage: React.FC = () => {
 
     return (
         <div className="transaction-page">
-            <div className="transaction-page__header">
-                <div>
-                    <h1 className="transaction-page__title">Transactions</h1>
-                    <p className="transaction-page__subtitle">{total} total transactions</p>
-                </div>
-                <Button variant="secondary" icon={<Download size={16} />} onClick={handleExport}>
-                    Export CSV
-                </Button>
-            </div>
+            <PageHeader
+                title="Transactions"
+                subtitle={`${total} total transactions`}
+                action={
+                    <Button variant="secondary" icon={<Download size={16} />} onClick={handleExport} loading={exportMutation.isPending}>
+                        Export CSV
+                    </Button>
+                }
+            />
 
             {/* Filters */}
             <div className="transaction-page__filters">
@@ -124,8 +105,8 @@ export const TransactionPage: React.FC = () => {
 
             {/* Table */}
             <Card>
-                <div className="beneficiary-table__wrapper">
-                    <table className="beneficiary-table">
+                <div className="table-wrapper">
+                    <table className="data-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -138,16 +119,16 @@ export const TransactionPage: React.FC = () => {
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan={6} className="beneficiary-table__empty">Loading...</td></tr>
+                                <tr><td colSpan={6} className="data-table__empty">Loading...</td></tr>
                             ) : filtered.length === 0 ? (
-                                <tr>
-                                    <td colSpan={6} className="beneficiary-table__empty">
-                                        <ArrowRightLeft size={32} />
-                                        <p>No transactions found</p>
-                                    </td>
-                                </tr>
+                                <TableEmptyState
+                                    colSpan={6}
+                                    icon={ArrowRightLeft}
+                                    message="No transactions found"
+                                    description={search ? "Try adjusting your filters" : "No transaction history available"}
+                                />
                             ) : (
-                                filtered.map((t) => (
+                                filtered.map((t: any) => (
                                     <tr key={t.id}>
                                         <td>{new Date(t.createdAt).toLocaleDateString()}</td>
                                         <td>

@@ -71,3 +71,26 @@
     color: var(--color-accent);
     font-size: var(--text-base);
 }
+
+.payout-dialog-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.payout-dialog-footer {
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 768px) {
+    .payout-page__header {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .payout-page__title {
+        font-size: var(--text-2xl);
+    }
+}

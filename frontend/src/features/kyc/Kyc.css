@@ -150,3 +150,27 @@
     color: var(--color-text-secondary);
     max-width: 400px;
 }
+
+.kyc-step-content {
+    margin-top: 24px;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 768px) {
+    .kyc-page__header {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .kyc-page__title {
+        font-size: var(--text-2xl);
+    }
+
+    .kyc-form__actions {
+        flex-direction: column;
+    }
+
+    .kyc-form__actions .btn {
+        width: 100%;
+    }
+}

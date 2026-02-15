@@ -1,0 +1,21 @@
+.loading-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: var(--color-text-muted);
+}
+
+.placeholder-page {
+    animation: fadeInUp 0.4s ease;
+}
+
+.placeholder-title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-2);
+}
+
+.placeholder-text {
+    color: var(--color-text-secondary);
+}

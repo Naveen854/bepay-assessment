@@ -1,0 +1,207 @@
+/* OnboardingPage.css */
+
+.onboarding-page {
+    min-height: 100vh;
+    background: var(--color-bg-subtle, var(--color-bg-secondary));
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.onboarding-header {
+    margin-bottom: 32px;
+    text-align: center;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.onboarding-icon-wrapper {
+    display: inline-flex;
+    padding: 12px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    margin-bottom: 16px;
+    color: var(--color-text-on-accent);
+    box-shadow: 0 4px 12px var(--color-accent-glow);
+}
+
+.onboarding-card {
+    width: 100%;
+    max-width: 500px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+}
+
+/* Sections */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.section-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+/* Grid for responsive inputs */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Upload Area */
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-area:hover {
+    border-color: var(--color-accent);
+    background: rgba(108, 92, 231, 0.05);
+}
+
+.upload-area.has-error {
+    border-color: var(--color-error);
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.upload-icon {
+    margin-bottom: 8px;
+    color: var(--color-text-muted);
+}
+
+.upload-text {
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.info-box {
+    display: flex;
+    gap: 12px;
+    background: rgba(253, 203, 110, 0.1);
+    color: var(--color-warning);
+    padding: 12px;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    border: 1px solid rgba(253, 203, 110, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+    margin-top: 8px;
+}
+
+/* Dropdown specific styles to match Input */
+.kyc-form__select {
+    width: 100%;
+    height: 40px;
+    padding: 0 var(--space-3, 12px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md, 6px);
+    color: var(--color-text-primary);
+    font-size: var(--text-base, 14px);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.kyc-form__select:focus {
+    border-color: var(--color-accent, #6c5ce7);
+    box-shadow: 0 0 0 3px var(--color-accent-muted, rgba(108, 92, 231, 0.2));
+}
+
+/* Ensure input-group labels and errors match if they rely on global classes but might need overrides or ensuring they exist if not globally imported correctly */
+.input-group__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.input-group__error {
+    font-size: 12px;
+    color: var(--color-error);
+    margin-top: 4px;
+}
+
+.upload-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 32px;
+    border: 2px solid var(--color-success, #00b894);
+    border-radius: var(--radius-lg);
+    color: var(--color-success, #00b894);
+    background: rgba(0, 184, 148, 0.05);
+    width: 100%;
+    height: 100%;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 480px) {
+    .onboarding-page {
+        padding: 16px;
+    }
+
+    .onboarding-card {
+        padding: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}

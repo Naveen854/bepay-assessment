@@ -1,0 +1,52 @@
+.organization-page {
+    animation: fadeInUp 0.4s ease;
+}
+
+.org-card-content {
+    padding: var(--space-6);
+}
+
+.org-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.org-icon-wrapper {
+    padding: 12px;
+    background: var(--color-surface);
+    border-radius: 12px;
+}
+
+.org-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.org-subtitle {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+}
+
+.org-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 640px) {
+    .org-card-content {
+        padding: var(--space-4);
+    }
+
+    .org-form-actions {
+        flex-direction: column;
+    }
+
+    .org-form-actions .btn {
+        width: 100%;
+    }
+}
